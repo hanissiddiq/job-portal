@@ -11,6 +11,15 @@ import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from '@/components/ui/form';
 import FieldInput from '@/components/organisms/FieldInput';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { JOBTYPES } from '@/constants';
 // import { zodResolver } from '@hookform/resolvers/zod/src/zod.js';
 
 
@@ -57,6 +66,93 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
                             </FormItem>
                         )}
                         />
+                </FieldInput>
+                <FieldInput title='Type of employment' subtitle='You can select multiple type of employment'>
+                    <FormField
+                    control={form.control} name="jobType"
+                    render={({ field }) => (
+                        <FormItem className="space-y-3">
+                        
+                        <FormControl>
+                            <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex flex-col"
+                            >
+                            {JOBTYPES.map((item:string, i :number)=>(
+                                <FormItem key={item+1} className="flex items-center gap-3">
+                                <FormControl>
+                                <RadioGroupItem value={item}/>
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                {item}
+                                </FormLabel>
+                            </FormItem>
+                            ))}
+                           
+                            </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+
+                </FieldInput>
+                <FieldInput title='Salary Range' subtitle='Please specify the estimated salary range for the role'>
+                    <div className="w-[450] flex flex-row items-center justify-between">
+                       <FormField
+                        control={form.control}
+                        name="salaryFrom"
+                        render={({ field }) => (
+                            <FormItem>
+                            
+                            <FormControl>
+                                <Input placeholder="Rp. 2800000" {...field} className='w-full' />
+                            </FormControl>                            
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        /> 
+                        <span className='text-center'>To</span>
+                        <FormField
+                        control={form.control}
+                        name="salaryTo"
+                        render={({ field }) => (
+                            <FormItem>
+                            
+                            <FormControl>
+                                <Input placeholder="Rp. 3600000" {...field} className='w-full' />
+                            </FormControl>                            
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        /> 
+                    </div>
+                </FieldInput>
+                <FieldInput title="Categories" subtitle='You can slect job categories'>
+                    <FormField
+                    control={form.control}
+                    name="categoryId"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Select Job categories</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                            <SelectTrigger className='w-[450px]'>
+                                <SelectValue placeholder="Select Job categories" />
+                            </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                            <SelectItem value="m@example.com">m@example.com</SelectItem>
+                            <SelectItem value="m@google.com">m@google.com</SelectItem>
+                            <SelectItem value="m@support.com">m@support.com</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
                 </FieldInput>
             </form>
         </Form>
