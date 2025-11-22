@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Job Portal — Admin Portal
 
-## Getting Started
+Ringkasan singkat, tech stack & cara menjalankan project lokal.
 
-First, run the development server:
+Tech stack
+- Next.js v15
+- Tailwind CSS
+- shadcn/ui (Shadcn UI)
+- Prisma (database ORM)
+- TypeScript, React, Postgres (direkomendasikan)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Prasyarat
+- Node.js (LTS) — disarankan v18+ atau sesuai engine project versi v20.19.3 (Ketika project ini didevelop)
+- npm / yarn / pnpm
+- Database (Postgres/MySQL/SQLite). Contoh memakai Postgres.
+- Git (opsional)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Instalasi cepat (Windows / Laragon)
+1. Clone repo
+   - git clone <repo-url> .
+2. Install dependency
+   - cd c:\laragon\www\job-portal\admin-portal-job
+   - npm install
+   - atau yarn / pnpm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Konfigurasi environment
+1. Buat file .env di root project (salin .env.example bila ada).
+2. Minimal variables:
+   - DATABASE_URL="postgresql://user:password@localhost:5432/job_portal"
+   - NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+   - (tambahan: NEXTAUTH_URL, SECRET, dsb. sesuai kebutuhan)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Prisma (setup database)
+- Inisialisasi / generate client (jika belum):
+  - npx prisma generate
+- Jalankan migrasi (development):
+  - npx prisma migrate dev --name init
+- Seed (jika ada skrip seed):
+  - node prisma/seed.js
+- Buka Prisma Studio:
+  - npx prisma studio
 
-## Learn More
+Menjalankan aplikasi (development)
+- npm run dev
+- Akses: http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+Build & produksi
+- Build: npm run build
+- Start production (set env sesuai produksi):
+  - npm run start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tailwind CSS & shadcn/ui
+- Tailwind sudah terkonfigurasi melalui postcss/tailwind config. Untuk perubahan kelas tailwind, hanya restart dev server bila perlu.
+- Jika menggunakan shadcn/ui components, jalankan generator UI bila perlu:
+  - pnpm dlx @shadcn/ui@latest add
+  - Ikuti petunjuk untuk menambah komponen.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Prisma (migrasi tambahan)
+- Tambah model di prisma/schema.prisma → npx prisma migrate dev --name your_change → npx prisma generate
 
-## Deploy on Vercel
+Troubleshooting cepat
+- Error "Can't resolve '@ckeditor/ckeditor5-build-classic'":
+  - Jalankan: npm i @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic
+  - Restart dev server setelah install.
+- Jika ada error import dynamic di server (SSG/SSR), pastikan komponen yang hanya berjalan di browser di-load secara dynamic / guarded dengan cek typeof window.
+- Jika migrations gagal, periksa DATABASE_URL dan koneksi DB.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Tips pengembangan
+- Gunakan Node version manager (nvm-windows) untuk konsistensi versi Node.
+- Gunakan VSCode + ekstensi Tailwind CSS IntelliSense dan Prisma.
+- Pastikan .env tidak di-commit (gitignore).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
