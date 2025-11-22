@@ -1,4 +1,5 @@
 // import { Sidebar } from 'lucide-react';
+'use client';
 import { Button } from '@/components/ui/button';
 import React, {FC} from 'react';
 import { FcHome } from "react-icons/fc";
@@ -9,11 +10,13 @@ import { FcKindle } from "react-icons/fc";
 import { FcCalendar } from "react-icons/fc";
 import { FcEngineering } from "react-icons/fc";
 import { FaRightFromBracket } from "react-icons/fa6";
+import { useRouter } from 'next/dist/client/components/navigation';
 
 interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({}) => {
+    const router = useRouter();
   return (
     <div className='pb-12 min-h-screen'>
         <div className='space-y-4 py-4'>
@@ -22,7 +25,8 @@ const Sidebar: FC<SidebarProps> = ({}) => {
                     Dashboard
                 </h2>
                 <div className="space-y-3">                    
-                    <Button variant="ghost" className="w-full justify-start  hover:text-primary">
+                    <Button variant="ghost" className="w-full justify-start  hover:text-primary"
+                    onClick={() => router.push('/')}>
                         <FcHome className='mr-2 text-lg'/>
                         Home
                     </Button>
@@ -38,7 +42,8 @@ const Sidebar: FC<SidebarProps> = ({}) => {
                         <FcDocument className='mr-2 text-lg'/>
                         All Applicants
                     </Button>
-                    <Button variant="ghost" className="w-full justify-start  hover:text-primary">
+                    <Button variant="ghost" className="w-full justify-start  hover:text-primary"
+                    onClick={() => router.push('/job-listings')}>
                         <FcKindle className='mr-2 text-lg'/>
                         Job Listing
                     </Button>
