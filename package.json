@@ -1,0 +1,12 @@
+{
+  "name": "job-portal",
+  "version": "1.0.0",
+  "description": "Aplikasi Job Portal ini dibangun dengan Next.js dan Tailwind CSS untuk tampilan modern, cepat, serta SEO-friendly berkat dukungan SSR. Data pengguna, lowongan, dan pelamar dikelola dengan Supabase dan Prisma. Platform ini memudahkan orang memposting serta melamar pekerjaan secara online dengan performa optimal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

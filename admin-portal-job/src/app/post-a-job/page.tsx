@@ -1,11 +1,11 @@
 "use client";
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { required } from 'zod/v4-mini';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { jobFormSchema } from '@/lib/form-schema';
-import { Ar } from 'zod/v4/locales';
+// import { Ar } from 'zod/v4/locales';
 import { ArrowLeftIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
@@ -20,6 +20,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { JOBTYPES } from '@/constants';
+import InputSkills from '@/components/organisms/InputSkills';
+import CKEditor from '@/components/organisms/CKEditor';
 // import { zodResolver } from '@hookform/resolvers/zod/src/zod.js';
 
 
@@ -27,6 +29,7 @@ interface PostJobPageProps {
 }
 
 const PostJobPage: FC<PostJobPageProps> = ({}) => {
+    const [editorLoaded, setEditorLoaded] =useState<boolean>(false);
     const form = useForm<z.infer<typeof jobFormSchema>>({
         resolver : zodResolver(jobFormSchema),
         defaultValues: {
@@ -37,6 +40,10 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
     const onSubmit = (val:z.infer<typeof jobFormSchema>) => {
         console.log(val);
     };
+
+    useEffect(() => {
+        setEditorLoaded(true);
+    }   , []);
 
   return (
     <div>
@@ -143,9 +150,9 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
                             </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                            <SelectItem value="m@example.com">m@example.com</SelectItem>
-                            <SelectItem value="m@google.com">m@google.com</SelectItem>
-                            <SelectItem value="m@support.com">m@support.com</SelectItem>
+                            <SelectItem value="Hard Working">Hard Working</SelectItem>
+                            <SelectItem value="Crafting">Crafting</SelectItem>
+                            <SelectItem value="Art">Art</SelectItem>
                             </SelectContent>
                         </Select>
                         
@@ -154,6 +161,26 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
                     )}
                     />
                 </FieldInput>
+                <FieldInput title="Required Skills" subtitle='You can add required skills do you have'>
+                    <InputSkills form={form} name="requiredSkills" label="Add Skills"/>
+                </FieldInput>
+
+                <FieldInput title="Job Description" subtitle='Job title must be described in one position'>
+                    <CKEditor form={form} name="jobDescription" editorLoaded={editorLoaded} />
+                </FieldInput>
+
+                <FieldInput title="Responsibilities" subtitle='Outline the core responsibilities for this position'>
+                    <CKEditor form={form} name="responsibilities" editorLoaded={editorLoaded} />
+                </FieldInput>
+
+                <FieldInput title="Who you are" subtitle='Add your preferred qualifications for this position'>
+                    <CKEditor form={form} name="whoYouAre" editorLoaded={editorLoaded} />
+                </FieldInput>
+
+                <FieldInput title="Nice to have" subtitle='Add nice to have skill and qualifications for the role to encourage more diverse set of candidates to apply'>
+                    <CKEditor form={form} name="niceToHave" editorLoaded={editorLoaded} />
+                </FieldInput>
+                
             </form>
         </Form>
     </div>
