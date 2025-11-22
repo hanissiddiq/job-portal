@@ -22,6 +22,7 @@ import {
 import { JOBTYPES } from '@/constants';
 import InputSkills from '@/components/organisms/InputSkills';
 import CKEditor from '@/components/organisms/CKEditor';
+import InputBenefits from '@/components/organisms/InputBenefits';
 // import { zodResolver } from '@hookform/resolvers/zod/src/zod.js';
 
 
@@ -179,7 +180,17 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
 
                 <FieldInput title="Nice to have" subtitle='Add nice to have skill and qualifications for the role to encourage more diverse set of candidates to apply'>
                     <CKEditor form={form} name="niceToHave" editorLoaded={editorLoaded} />
+                </FieldInput>                
+                              
+                <FieldInput title="Benefits" subtitle='Add benefits for this position'>
+                    <InputBenefits form={form} />
                 </FieldInput>
+
+                <div className="flex justify-end">
+                <button type="submit" className="bg-primary text-white px-5 py-2 rounded-md hover:bg-primary/80 transition">
+                    Do a Review
+                </button>
+                </div>
                 
             </form>
         </Form>
