@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Applicants from '@/components/organisms/Applicants';
+import JobDetail from '@/components/organisms/JobDetail';
 
 interface JobDetailPageProps {
   
@@ -34,7 +35,9 @@ const JobDetailPage: FC<JobDetailPageProps> = ({}) => {
             <TabsContent value="applicants">
                 <Applicants/>
             </TabsContent>
-            <TabsContent value="jobDetails">Change your password here.</TabsContent>
+            <TabsContent value="jobDetails">
+                <JobDetail/>
+            </TabsContent>
         </Tabs>
 
 
